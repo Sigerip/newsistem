@@ -1,4 +1,4 @@
-# SIGERIP - Sistema de Gerenciamento de Informações de Mortalidade
+# OIAtuarial - Observatório de Inteligencia Atuarial
 
 Sistema para visualização e análise de dados de mortalidade no Brasil.
 
