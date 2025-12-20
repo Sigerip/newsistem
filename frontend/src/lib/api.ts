@@ -4,7 +4,7 @@
  */
 
 // Configuração base da API
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api-vercel-silk.vercel.app';
 const API_PREFIX = import.meta.env.VITE_API_PREFIX || '/sigerip';
 const BASE_URL = `${API_URL}${API_PREFIX}`;
 

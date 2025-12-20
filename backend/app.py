@@ -32,7 +32,7 @@ class TabuaMortalidade(db.Model):
     __tablename__ = 'tabua_mortalidade'
     id = db.Column(db.Integer, primary_key=True)
     ano = db.Column(db.Integer)
-    faixa_etaria = db.Column(db.Integer)
+    faixa_etaria = db.Column(db.String(10))
     local = db.Column(db.String(100))
     sexo = db.Column(db.String(20))
     nMx = db.Column(db.Float)
@@ -185,7 +185,7 @@ def get_tabua_mortalidade():
     ano_fim = request.args.get('ano_fim', type=int)
     sexo = request.args.get('sexo')
     local = request.args.get('local')
-    faixa_etaria = request.args.get('faixa_etaria', type=int)
+    faixa_etaria = request.args.get('faixa_etaria', type=str)
     
     if ano_inicio:
         query = query.filter(TabuaMortalidade.ano >= ano_inicio)
@@ -199,6 +199,7 @@ def get_tabua_mortalidade():
         query = query.filter(TabuaMortalidade.faixa_etaria == faixa_etaria)
     
     query = query.order_by(TabuaMortalidade.ano, TabuaMortalidade.faixa_etaria)
+    print(faixa_etaria)
     
     # Paginação
     page = request.args.get('page', 1, type=int)
