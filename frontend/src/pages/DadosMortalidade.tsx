@@ -143,7 +143,7 @@ const DadosMortalidade = () => {
               Análise das taxas centrais de mortalidade por faixa etária
             </p>
           </div>
-
+          <h2 className="text-4xl font-bold mb-4 text-center">Gráfico da Curva de Mortalidade</h2>
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -152,7 +152,6 @@ const DadosMortalidade = () => {
                   <Loader2 className="h-4 w-4 animate-spin text-primary" />
                 )}
               </CardTitle>
-              <CardDescription>Personalize a visualização dos dados</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -298,8 +297,10 @@ const DadosMortalidade = () => {
             </Tabs>
           )}
         </div>
+
         {/* outro gráfico */}
         <div className="max-w-6xl mx-auto mt-12">
+        <h2 className="text-4xl font-bold mb-4 text-center">Gráfico da Taxa Central de Mortalidade</h2>
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -308,7 +309,6 @@ const DadosMortalidade = () => {
                   <Loader2 className="h-4 w-4 animate-spin text-primary" />
                 )}
               </CardTitle>
-              <CardDescription>Personalize a visualização dos dados</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

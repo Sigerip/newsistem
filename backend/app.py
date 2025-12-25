@@ -1,10 +1,18 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flasgger import Swagger
 import os
 
 # Configuração do Flask
 app = Flask(__name__)
+
+# Configuração do Swagger
+app.config['SWAGGER'] = {
+    'title': 'API SIGERIP - Mortalidade',
+    'uiversion': 3
+}
+swagger = Swagger(app)
 
 # Configuração do banco de dados SQLite
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -177,7 +185,59 @@ def database_status():
 
 @app.route('/sigerip/tabua-mortalidade', methods=['GET'])
 def get_tabua_mortalidade():
-    """Lista tábuas de mortalidade com filtros opcionais"""
+    """
+    Lista tábuas de mortalidade com filtros opcionais
+    ---
+    parameters:
+      - name: ano_inicio
+        in: query
+        type: integer
+        description: Ano inicial para filtro
+      - name: ano_fim
+        in: query
+        type: integer
+        description: Ano final para filtro
+      - name: sexo
+        in: query
+        type: string
+        enum: ['Masculino', 'Feminino', 'Ambos']
+        description: Sexo para filtro
+      - name: local
+        in: query
+        type: string
+        description: Localidade (Estado ou Região)
+      - name: page
+        in: query
+        type: integer
+        default: 1
+        description: Número da página
+      - name: per_page
+        in: query
+        type: integer
+        default: 100
+        description: Itens por página
+    responses:
+      200:
+        description: Lista de tábuas de mortalidade
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  ano:
+                    type: integer
+                  nMx:
+                    type: number
+                  ex:
+                    type: number
+            total:
+              type: integer
+            page:
+              type: integer
+    """
     query = TabuaMortalidade.query
     
     # Filtros
@@ -199,7 +259,6 @@ def get_tabua_mortalidade():
         query = query.filter(TabuaMortalidade.faixa_etaria == faixa_etaria)
     
     query = query.order_by(TabuaMortalidade.ano, TabuaMortalidade.faixa_etaria)
-    print(faixa_etaria)
     
     # Paginação
     page = request.args.get('page', 1, type=int)
